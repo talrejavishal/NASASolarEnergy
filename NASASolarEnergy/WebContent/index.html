@@ -13,6 +13,8 @@
 <script>
 	var filteredRes = [];
 	var sumRadiation=0;
+	var powerGenerated=0;
+	var areaSolarPanel=72;
 	$(function() {
 		$("#slider-range").slider({
 			range : true,
@@ -30,6 +32,8 @@
 					}
 				});
 				console.log("sumRadiation "+sumRadiation);
+				powerGenerated=sumRadiation * areaSolarPanel;
+				console.log("powerGenerated "+powerGenerated);
 			}
 		});
 		$("#amount").val(
