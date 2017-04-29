@@ -6,7 +6,6 @@
 <title>jQuery UI Slider - Range slider</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="css/sheet1.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -35,17 +34,45 @@
 			$('<span class="ui-slider-tick-mark"></span>').css('left',
 					(spacing * i) + '%').appendTo($slider);
 		}
-		/* $( "#datepicker" ).datepicker();*/
 		$("#datepicker").datepicker({
 			prevText : "Earlier",
 			onSelect : function(date) {
 				console.log(date);
+				var d=new Date(date);				
+				console.log("d.getDate() "+d.getDate());
+				console.log("d.getMonth() "+d.getMonth());
+				console.log("d.getDay() "+d.getFullYear());
 				var data;
 				$.support.cors = true;
-				$.get("data/convertcsv.json", function(data, status){
+				
+				/* $.get("data/convertcsv.json", function(data, status){
 			        console.log("Data: " + data.length + "\nStatus: " + status);
-			    });
-			}
+			        console.log(data[0]);			        		
+			        
+			    }); */
+				this.xhr = $.ajax({
+					crossDomain : true,
+					url : "data/convertcsv.json",
+					type : "get",
+					data : data,
+					accept : "application/json",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					success : function(response) {
+						console.log("success");
+						console.log(response[0].DATE);
+					},
+					error: function(xhr, status, error) {
+						  var err = JSON.parse(xhr.responseText);
+						  console(err.Message);
+					},
+					fail : function(response) {
+						console.log("fail");
+						console.log(response)
+					}
+				});
+			},
+			dateFormat: 'yy-mm-dd'
 		});
 	});
 
