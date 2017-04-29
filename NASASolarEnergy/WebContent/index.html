@@ -11,14 +11,15 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script>
+	var filteredRes = [];
 	$(function() {
 		$("#slider-range").slider({
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 0, 24 ],
+			values : [ 0, 0 ],
 			slide : function(event, ui) {
-				$("#amount").val(ui.values[0] + " - " + ui.values[1]+" hrs");
+				$("#amount").val(ui.values[0] + " - " + ui.values[1] + " hrs");
 			}
 		});
 		$("#amount").val(
@@ -34,50 +35,60 @@
 			$('<span class="ui-slider-tick-mark"></span>').css('left',
 					(spacing * i) + '%').appendTo($slider);
 		}
-		$("#datepicker").datepicker({
-			prevText : "Earlier",
-			defaultDate: new Date(2016,08,01),
-			onSelect : function(date) {
-				console.log(date);
-				var d=new Date(date);				
-				console.log("d.getDate() "+d.getDate());
-				console.log("d.getMonth() "+d.getMonth());
-				console.log("d.getDay() "+d.getFullYear());
-				var data;
-				$.support.cors = true;
-				
-				/* $.get("data/convertcsv.json", function(data, status){
-			        console.log("Data: " + data.length + "\nStatus: " + status);
-			        console.log(data[0]);			        		
-			        
-			    }); */
-				this.xhr = $.ajax({
-					crossDomain : true,
-					url : "data/convertcsv.json",
-					type : "get",
-					data : data,
-					accept : "application/json",
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					success : function(response) {
-						console.log("success");
-						console.log(response[0].DATE + ", "+date);
-						var date1=$.datepicker.parseDate("yy-mm-dd", response[0].DATE) 
-						var date2=$.datepicker.parseDate("yy-mm-dd", date);
-						console.log(date1.getTime()===date2.getTime());
+		$("#datepicker").datepicker(
+				{
+					prevText : "Earlier",
+					defaultDate : new Date(2016, 08, 01),
+					onSelect : function(date) {
+						console.log(date);
+						var d = new Date(date);
+						console.log("d.getDate() " + d.getDate());
+						console.log("d.getMonth() " + d.getMonth());
+						console.log("d.getDay() " + d.getFullYear());
+						var data;
+						$.support.cors = true;
+
+						/* $.get("data/convertcsv.json", function(data, status){
+						    console.log("Data: " + data.length + "\nStatus: " + status);
+						    console.log(data[0]);			        		
+						    
+						}); */
+						this.xhr = $.ajax({
+							crossDomain : true,
+							url : "data/convertcsv.json",
+							type : "get",
+							data : data,
+							accept : "application/json",
+							contentType : "application/json; charset=utf-8",
+							dataType : "json",
+							success : function(response) {
+								console.log("success");
+								console.log(response[0].DATE + ", " + date);
+								var selectedDate = $.datepicker.parseDate(
+										"yy-mm-dd", date);
+								filteredRes = [];
+								response.forEach(function(radiationObj) {
+									var loopDate = $.datepicker.parseDate(
+											"yy-mm-dd", radiationObj.DATE);
+									if (loopDate.getTime() === selectedDate
+											.getTime()) {
+										filteredRes.push(radiationObj);
+									}
+								});
+								console.log(filteredRes.length);
+							},
+							error : function(xhr, status, error) {
+								var err = JSON.parse(xhr.responseText);
+								console(err.Message);
+							},
+							fail : function(response) {
+								console.log("fail");
+								console.log(response)
+							}
+						});
 					},
-					error: function(xhr, status, error) {
-						  var err = JSON.parse(xhr.responseText);
-						  console(err.Message);
-					},
-					fail : function(response) {
-						console.log("fail");
-						console.log(response)
-					}
+					dateFormat : 'yy-mm-dd'
 				});
-			},
-			dateFormat: 'yy-mm-dd'
-		});
 	});
 
 	$(function() {
