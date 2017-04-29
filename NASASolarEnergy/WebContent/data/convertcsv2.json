@@ -1,0 +1,82 @@
+[
+ {
+   "ITEM": "ITEM",
+   "POWER": "POWER",
+   "IMAGE_URL": "IMAGE_URL"
+ },
+ {
+   "ITEM": "BULB",
+   "POWER": "60",
+   "IMAGE_URL": "http://www.domosti.ru/images/product_store/460x460/83825.jpg"
+ },
+ {
+   "ITEM": "LCD ",
+   "POWER": "30",
+   "IMAGE_URL": "http://img.archiexpo.com/images_ae/photo-g/49923-5577287.jpg"
+ },
+ {
+   "ITEM": "DESKTOP MONITOR",
+   "POWER": "100",
+   "IMAGE_URL": "http://www.verussolutions.biz/web/sites/default/files/desktop.jpg"
+ },
+ {
+   "ITEM": "LAPTOP",
+   "POWER": "60",
+   "IMAGE_URL": "https://cdn1.pcadvisor.co.uk/cmsdata/reviews/3621086/Asus_X555LA-XX290H_budget_laptop_800_thumb800.jpg"
+ },
+ {
+   "ITEM": "WIFI ROUTER",
+   "POWER": "6",
+   "IMAGE_URL": "http://www.cyberfreewishes.com/uploads/6/4/0/6/6406650/126425203_orig.gif?167"
+ },
+ {
+   "ITEM": "PRINTER",
+   "POWER": "40",
+   "IMAGE_URL": "http://ecx.images-amazon.com/images/I/71kNJYvFEOL._SL1500_.jpg"
+ },
+ {
+   "ITEM": "PHONE CHARGER",
+   "POWER": "5",
+   "IMAGE_URL": "https://images-na.ssl-images-amazon.com/images/I/41WKeG-RkoL.jpg"
+ },
+ {
+   "ITEM": "",
+   "POWER": "",
+   "IMAGE_URL": ""
+ },
+ {
+   "ITEM": " AIR CONDITIONER ",
+   "POWER": "1000",
+   "IMAGE_URL": "http://www.voxelectronics.com/en/wp-content/uploads/2015/08/VSA-2-front-flat1.jpg"
+ },
+ {
+   "ITEM": "OVEN ",
+   "POWER": "2400",
+   "IMAGE_URL": "https://images-na.ssl-images-amazon.com/images/I/71mdsLdw2-L._SL1500_.jpg"
+ },
+ {
+   "ITEM": "COOKING STOVE TOP ",
+   "POWER": "1500",
+   "IMAGE_URL": "http://bpc.h-cdn.co/assets/16/25/980x490/gallery-1466694850-camp-chef-everest-camping-stove.jpg"
+ },
+ {
+   "ITEM": "REFRIGERATOR",
+   "POWER": "180",
+   "IMAGE_URL": "http://c.shld.net/rpx/i/s/i/spin/image/spin_prod_1259634712?hei=245&wid=245&op_sharpen=1&qlt=85"
+ },
+ {
+   "ITEM": "MICROWAVE",
+   "POWER": "1200",
+   "IMAGE_URL": "http://brain-images.cdn.dixons.com/1/1/10127511/u_10127511.jpg"
+ },
+ {
+   "ITEM": "IRON",
+   "POWER": "1100",
+   "IMAGE_URL": "http://kingofwallpapers.com/iron/iron-025.jpg"
+ },
+ {
+   "ITEM": "CEILING FAN ",
+   "POWER": "75",
+   "IMAGE_URL": "http://ecx.images-amazon.com/images/I/61ZBCEPKMqL._SL1500_.jpg"
+ }
+]

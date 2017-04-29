@@ -15,6 +15,7 @@
 	var sumRadiation=0;
 	var powerGenerated=0;
 	var areaSolarPanel=72;
+	var filteredProducts=[];
 	$(function() {
 		$("#slider-range").slider({
 			range : true,
@@ -34,6 +35,32 @@
 				console.log("sumRadiation "+sumRadiation);
 				powerGenerated=sumRadiation * areaSolarPanel;
 				console.log("powerGenerated "+powerGenerated);
+				this.xhr = $.ajax({
+					crossDomain : true,
+					url : "data/convertcsv2.json",
+					type : "get",
+					accept : "application/json",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					success : function(response) {
+						filteredProducts=[];
+						response.forEach(function(powerObj) {
+							if (powerObj.POWER <=powerGenerated) {
+								filteredProducts.push(powerObj);
+							}
+						});
+						console.log(filteredRes.length);
+						console.log(filteredProducts);
+					},
+					error : function(xhr, status, error) {
+						var err = JSON.parse(xhr.responseText);
+						console(err.Message);
+					},
+					fail : function(response) {
+						console.log("fail");
+						console.log(response)
+					}
+				});
 			}
 		});
 		$("#amount").val(
@@ -71,7 +98,6 @@
 							crossDomain : true,
 							url : "data/convertcsv.json",
 							type : "get",
-							data : data,
 							accept : "application/json",
 							contentType : "application/json; charset=utf-8",
 							dataType : "json",
