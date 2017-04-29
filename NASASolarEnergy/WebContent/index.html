@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>jQuery UI Slider - Range slider</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="css/sheet1.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -39,51 +40,13 @@
 			prevText : "Earlier",
 			onSelect : function(date) {
 				console.log(date);
-
 				var data;
 				$.support.cors = true;
-				/* this.xhr = $.ajax({
-					crossDomain : true,
-					url : "data/convertcsv.json",
-					type : "get",
-					data : data,
-					accept : "application/json",
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					success : function(response) {
-						console.log("success");
-						alert(response);
-					},
-					error: function(xhr, status, error) {
-						  var err = JSON.parse(xhr.responseText);
-						  alert(err.Message);
-					},
-					fail : function(response) {
-						console.log("fail");
-						console.log(response)
-					}
-				}); */
 				$.get("data/convertcsv.json", function(data, status){
 			        console.log("Data: " + data.length + "\nStatus: " + status);
 			    });
-				/* $.ajax({url: "convertcsv.json", success: function(result){
-				console.log(result);
-				}});    */
-
 			}
-
-		/*var xhttp = new XMLHttpRequest();
-		 xhttp.onreadystatechange= function() {
-		   if (this.readyState ==4 && this.status == 200) {
-		    console.log(this.responseText);
-		   console.log("shubham");
-		   }
-		 };
-		 xhttp.open("GET","convertcsv.json", true);
-		       }     */
-
 		});
-
 	});
 
 	$(function() {
@@ -104,8 +67,7 @@
 		<p>
 			Date: <input type="text" id="datepicker" onclick="click()">
 		</p>
-		<input type="text"
-			id="amount" readonly
+		<input type="text" id="amount" readonly
 			style="border: 0; color: #f6931f; font-weight: bold;">
 
 		</p>
