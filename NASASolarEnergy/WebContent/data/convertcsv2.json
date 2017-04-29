@@ -1,13 +1,8 @@
 [
  {
-   "ITEM": "ITEM",
-   "POWER": "POWER",
-   "IMAGE_URL": "IMAGE_URL"
- },
- {
    "ITEM": "BULB",
    "POWER": "60",
-   "IMAGE_URL": "http://www.domosti.ru/images/product_store/460x460/83825.jpg"
+   "IMAGE_URL": "../img/bulb.jpg"
  },
  {
    "ITEM": "LCD ",
