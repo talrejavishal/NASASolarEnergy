@@ -1,136 +1,140 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Slider - Range slider</title>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <link rel="stylesheet" href="css/sheet1.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-  <script>
-  $( function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 24,
-      values: [ 12, 16 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-  
-    var $slider =  $('#slider-range');
-    var max =  $slider.slider("option", "max");    
-    var spacing =  5;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Slider - Range slider</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="css/sheet1.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script>
+	$(function() {
+		$("#slider-range").slider({
+			range : true,
+			min : 0,
+			max : 24,
+			values : [ 12, 16 ],
+			slide : function(event, ui) {
+				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+			}
+		});
+		$("#amount").val(
+				"$" + $("#slider-range").slider("values", 0) + " - $"
+						+ $("#slider-range").slider("values", 1));
 
-    $slider.find('.ui-slider-tick-mark').remove();
-    for (var i = 0; i < max-3 ; i++) {
-        $('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider); 
-     }
-    /* $( "#datepicker" ).datepicker();*/
-     $( "#datepicker" ).datepicker({
-  prevText: "Earlier",
-  onSelect: function(date) {
-            console.log(date);
+		var $slider = $('#slider-range');
+		var max = $slider.slider("option", "max");
+		var spacing = 5;
 
-           /* var data;
-    $.support.cors = true;
-    this.xhr = $.ajax({
-    crossDomain: true,
-    url: "convertcsv.json",
-    type: "get",
-    data: data,
-    accept: "application/json",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function(response) {
-        alert(response);
-    },
-    error: function(response) {
-        console.log(response)
-    },
-    fail: function(response) {
-        console.log(response)
-    }
-});*/
-        /* $.ajax({url: "convertcsv.json", success: function(result){
-       console.log(result);
-    }});    */
-  
-  }
-   
- /*var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange= function() {
-    if (this.readyState ==4 && this.status == 200) {
-     console.log(this.responseText);
-    console.log("shubham");
-    }
-  };
-  xhttp.open("GET","convertcsv.json", true);
-        }     */
+		$slider.find('.ui-slider-tick-mark').remove();
+		for (var i = 0; i < max - 3; i++) {
+			$('<span class="ui-slider-tick-mark"></span>').css('left',
+					(spacing * i) + '%').appendTo($slider);
+		}
+		/* $( "#datepicker" ).datepicker();*/
+		$("#datepicker").datepicker({
+			prevText : "Earlier",
+			onSelect : function(date) {
+				console.log(date);
 
-});
-     
-} );
-  
- $( function() {
-    var panel_image = $( "#panel_image" );
+				var data;
+				$.support.cors = true;
+				this.xhr = $.ajax({
+					crossDomain : true,
+					url : "data/convertcsv.json",
+					type : "get",
+					data : data,
+					accept : "application/json",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					success : function(response) {
+						console.log("success");
+						alert(response);
+					},
+					error : function(response) {
+						console.log("error");
+						console.log(response)
+					},
+					fail : function(response) {
+						console.log("fail");
+						console.log(response)
+					}
+				});
+				/* $.ajax({url: "convertcsv.json", success: function(result){
+				console.log(result);
+				}});    */
 
-    $( "#panel" ).selectmenu({
-      change: function( event, data ) {
-       
-      $('#panel_image').attr("src",$('#panel').val());
+			}
 
-      }
-     });
+		/*var xhttp = new XMLHttpRequest();
+		 xhttp.onreadystatechange= function() {
+		   if (this.readyState ==4 && this.status == 200) {
+		    console.log(this.responseText);
+		   console.log("shubham");
+		   }
+		 };
+		 xhttp.open("GET","convertcsv.json", true);
+		       }     */
 
-  } );
-     
-    
+		});
 
-  </script>
+	});
+
+	$(function() {
+		var panel_image = $("#panel_image");
+
+		$("#panel").selectmenu({
+			change : function(event, data) {
+
+				$('#panel_image').attr("src", $('#panel').val());
+
+			}
+		});
+
+	});
+</script>
 </head>
-<body>  
-<div>
-  <p>
-    <p>Date: <input type="text" id="datepicker" onclick="click()"></p> 
-    <label for="amount">Calculate Storage:</label>
-    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-    
-  </p>
-  <div id="slider-range" style="width: 100%"></div>
-</div>
-<br>
-<div style="width: 50%; float: left;">
-<div style="margin-left: 15% ">
-<img src="img/images.jpg" width="30%">
-</div>
-<div  style="width: 100%">
-   <img id="panel_image" src="img/monocrystalline.png" style="float:right; width:20%"> 
-</div>
-<div style="padding-top: 10%;">
-<h2>Select the type of panel:</h2>
-  <select id="panel" style="margin-left: 10%">
-  <option value="img/monocrystalline.png">SolarA</option>
-  <option value="img/panel2.jpg">SolarB</option>
-  <option value="img/panel1.jpg">SolarC</option>
-  </select>
-</div>
-</div>
-<div style="width: 49%; float: right;margin-left:1%">
+<body>
+	<div>
+		<p>
+		<p>
+			Date: <input type="text" id="datepicker" onclick="click()">
+		</p>
+		<label for="amount">Calculate Storage:</label> <input type="text"
+			id="amount" readonly
+			style="border: 0; color: #f6931f; font-weight: bold;">
 
-<img src="img/sunrays.jpg">
-<img src="img/sunrays.jpg">
-<img src="img/sunrays.jpg">
-<img src="img/sunrays.jpg">
-</div>
+		</p>
+		<div id="slider-range" style="width: 100%"></div>
+	</div>
+	<br>
+	<div style="width: 50%; float: left;">
+		<div style="margin-left: 15%">
+			<img src="img/images.jpg" width="30%">
+		</div>
+		<div style="width: 100%">
+			<img id="panel_image" src="img/monocrystalline.png"
+				style="float: right; width: 20%">
+		</div>
+		<div style="padding-top: 10%;">
+			<h2>Select the type of panel:</h2>
+			<select id="panel" style="margin-left: 10%">
+				<option value="img/monocrystalline.png">SolarA</option>
+				<option value="img/panel2.jpg">SolarB</option>
+				<option value="img/panel1.jpg">SolarC</option>
+			</select>
+		</div>
+	</div>
+	<div style="width: 49%; float: right; margin-left: 1%">
+
+		<img src="img/sunrays.jpg"> <img src="img/sunrays.jpg"> <img
+			src="img/sunrays.jpg"> <img src="img/sunrays.jpg">
+	</div>
 
 
- 
+
 </body>
 </html>
