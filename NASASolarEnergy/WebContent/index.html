@@ -12,6 +12,7 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script>
 	var filteredRes = [];
+	var sumRadiation=0;
 	$(function() {
 		$("#slider-range").slider({
 			range : true,
@@ -19,7 +20,16 @@
 			max : 24,
 			values : [ 0, 0 ],
 			slide : function(event, ui) {
+				sumRadiation=0;
 				$("#amount").val(ui.values[0] + " - " + ui.values[1] + " hrs");
+				filteredRes.forEach(function(radiationObj) {
+					
+					var loopTime=parseInt(radiationObj.TIME.split(":")[0]);					
+					if (loopTime>=parseInt(ui.values[0]) && loopTime<=parseInt(ui.values[1])) {
+						sumRadiation+=radiationObj.RADIATION;
+					}
+				});
+				console.log("sumRadiation "+sumRadiation);
 			}
 		});
 		$("#amount").val(
