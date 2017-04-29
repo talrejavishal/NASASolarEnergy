@@ -36,6 +36,7 @@
 		}
 		$("#datepicker").datepicker({
 			prevText : "Earlier",
+			defaultDate: new Date(2016,08,01),
 			onSelect : function(date) {
 				console.log(date);
 				var d=new Date(date);				
@@ -60,7 +61,10 @@
 					dataType : "json",
 					success : function(response) {
 						console.log("success");
-						console.log(response[0].DATE);
+						console.log(response[0].DATE + ", "+date);
+						var date1=$.datepicker.parseDate("yy-mm-dd", response[0].DATE) 
+						var date2=$.datepicker.parseDate("yy-mm-dd", date);
+						console.log(date1.getTime()===date2.getTime());
 					},
 					error: function(xhr, status, error) {
 						  var err = JSON.parse(xhr.responseText);
