@@ -16,14 +16,14 @@
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 12, 16 ],
+			values : [ 0, 24 ],
 			slide : function(event, ui) {
-				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+				$("#amount").val(ui.values[0] + " - " + ui.values[1]+" hrs");
 			}
 		});
 		$("#amount").val(
-				"$" + $("#slider-range").slider("values", 0) + " - $"
-						+ $("#slider-range").slider("values", 1));
+				$("#slider-range").slider("values", 0) + " - "
+						+ $("#slider-range").slider("values", 1) + " hrs");
 
 		var $slider = $('#slider-range');
 		var max = $slider.slider("option", "max");
@@ -42,7 +42,7 @@
 
 				var data;
 				$.support.cors = true;
-				this.xhr = $.ajax({
+				/* this.xhr = $.ajax({
 					crossDomain : true,
 					url : "data/convertcsv.json",
 					type : "get",
@@ -54,15 +54,18 @@
 						console.log("success");
 						alert(response);
 					},
-					error : function(response) {
-						console.log("error");
-						console.log(response)
+					error: function(xhr, status, error) {
+						  var err = JSON.parse(xhr.responseText);
+						  alert(err.Message);
 					},
 					fail : function(response) {
 						console.log("fail");
 						console.log(response)
 					}
-				});
+				}); */
+				$.get("data/convertcsv.json", function(data, status){
+			        console.log("Data: " + data.length + "\nStatus: " + status);
+			    });
 				/* $.ajax({url: "convertcsv.json", success: function(result){
 				console.log(result);
 				}});    */
@@ -88,9 +91,7 @@
 
 		$("#panel").selectmenu({
 			change : function(event, data) {
-
 				$('#panel_image').attr("src", $('#panel').val());
-
 			}
 		});
 
@@ -103,7 +104,7 @@
 		<p>
 			Date: <input type="text" id="datepicker" onclick="click()">
 		</p>
-		<label for="amount">Calculate Storage:</label> <input type="text"
+		<input type="text"
 			id="amount" readonly
 			style="border: 0; color: #f6931f; font-weight: bold;">
 
@@ -129,12 +130,8 @@
 		</div>
 	</div>
 	<div style="width: 49%; float: right; margin-left: 1%">
-
 		<img src="img/sunrays.jpg"> <img src="img/sunrays.jpg"> <img
 			src="img/sunrays.jpg"> <img src="img/sunrays.jpg">
 	</div>
-
-
-
 </body>
 </html>
