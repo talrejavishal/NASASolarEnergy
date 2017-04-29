@@ -12,57 +12,83 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script>
 	var filteredRes = [];
-	var sumRadiation=0;
-	var powerGenerated=0;
-	var areaSolarPanel=72;
-	var filteredProducts=[];
+	var sumRadiation = 0;
+	var powerGenerated = 0;
+	var filteredProducts = [];
+	var areaSolarPanel = 72;
+	var efficiency = 0.015;//by defautl Monocrystalline Panels
+
 	$(function() {
-		$("#slider-range").slider({
-			range : true,
-			min : 0,
-			max : 24,
-			values : [ 0, 0 ],
-			slide : function(event, ui) {
-				sumRadiation=0;
-				$("#amount").val(ui.values[0] + " - " + ui.values[1] + " hrs");
-				filteredRes.forEach(function(radiationObj) {
-					
-					var loopTime=parseInt(radiationObj.TIME.split(":")[0]);					
-					if (loopTime>=parseInt(ui.values[0]) && loopTime<parseInt(ui.values[1])) {
-						sumRadiation+=radiationObj.RADIATION;
-					}
-				});
-				console.log("sumRadiation "+sumRadiation);
-				powerGenerated=sumRadiation * areaSolarPanel;
-				console.log("powerGenerated "+powerGenerated);
-				this.xhr = $.ajax({
-					crossDomain : true,
-					url : "data/convertcsv2.json",
-					type : "get",
-					accept : "application/json",
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					success : function(response) {
-						filteredProducts=[];
-						response.forEach(function(powerObj) {
-							if (powerObj.POWER <=powerGenerated) {
-								filteredProducts.push(powerObj);
+
+		$("#slider-range").slider(
+				{
+					range : true,
+					min : 0,
+					max : 24,
+					values : [ 0, 0 ],
+					slide : function(event, ui) {
+						sumRadiation = 0;
+						powerGenerated = 0;
+						filteredProducts = [];
+						$("#amount").val(
+								ui.values[0] + " - " + ui.values[1] + " hrs");
+						filteredRes.forEach(function(radiationObj) {
+							var loopTime = parseInt(radiationObj.TIME
+									.split(":")[0]);
+							if (loopTime >= parseInt(ui.values[0])
+									&& loopTime < parseInt(ui.values[1])) {
+								sumRadiation += radiationObj.RADIATION;
 							}
 						});
-						console.log(filteredRes.length);
-						console.log(filteredProducts);
-					},
-					error : function(xhr, status, error) {
-						var err = JSON.parse(xhr.responseText);
-						console(err.Message);
-					},
-					fail : function(response) {
-						console.log("fail");
-						console.log(response)
+						console.log("efficiency" + efficiency);
+						console.log("sumRadiation " + sumRadiation);
+						powerGenerated = sumRadiation * areaSolarPanel
+								* efficiency; //as per puneet requirment
+						console.log("powerGenerated " + powerGenerated);
+
+						this.xhr = $.ajax({
+							crossDomain : true,
+							url : "data/convertcsv2.json",
+							type : "get",
+							accept : "application/json",
+							contentType : "application/json; charset=utf-8",
+							dataType : "json",
+							success : function(response) {
+								filteredProducts = [];
+								response.forEach(function(powerObj) {
+									if (powerObj.POWER <= powerGenerated) {
+										filteredProducts.push(powerObj);
+									}
+								});
+								// Clear all images meaning remove all devices
+								$("#imagesList").empty();
+								console.log(filteredRes.length);
+								console.log(filteredProducts);
+
+								//load image array adding images to div 
+
+								$.each(filteredProducts, function() {
+
+									var path = this.IMAGE_URL;
+									console.log(path);
+
+									$('<img />').attr('src', "" + path + "") // ADD IMAGE PROPERTIES.
+									.width('140px').height('140px').appendTo(
+											$('#imagesList'));
+								});
+
+							},
+							error : function(xhr, status, error) {
+								var err = JSON.parse(xhr.responseText);
+								console(err.Message);
+							},
+							fail : function(response) {
+								console.log("fail");
+								console.log(response)
+							}
+						});
 					}
 				});
-			}
-		});
 		$("#amount").val(
 				$("#slider-range").slider("values", 0) + " - "
 						+ $("#slider-range").slider("values", 1) + " hrs");
@@ -88,12 +114,6 @@
 						console.log("d.getDay() " + d.getFullYear());
 						var data;
 						$.support.cors = true;
-
-						/* $.get("data/convertcsv.json", function(data, status){
-						    console.log("Data: " + data.length + "\nStatus: " + status);
-						    console.log(data[0]);			        		
-						    
-						}); */
 						this.xhr = $.ajax({
 							crossDomain : true,
 							url : "data/convertcsv.json",
@@ -138,13 +158,32 @@
 		$("#panel").selectmenu({
 			change : function(event, data) {
 				$('#panel_image').attr("src", $('#panel').val());
+				//as per selection of panel updating the efficiency var
+				var name = $("#panel :selected").text();
+				if (name == "Monocrystalline Panels(15%)") {
+					efficiency = 0.015;
+				} else if (name == "Polycrystalline Panels(13%)") {
+					efficiency = 0.013;
+				} else if (name == "Thin film solar Panels(10%)") {
+					efficiency = 0.010;
+				}
+
+				console.log("efficiency" + efficiency);
 			}
 		});
 
 	});
 </script>
 </head>
-<body>
+<body style="background-color: #fafafa">
+	<div>
+
+
+		<div style="text-align: center">
+			<h1>Solar Power Enabling Life - Future Martians</h1>
+		</div>
+		</p>
+	</div>
 	<div>
 		<p>
 		<p>
@@ -163,20 +202,30 @@
 		</div>
 		<div style="width: 100%">
 			<img id="panel_image" src="img/monocrystalline.png"
-				style="float: right; width: 20%">
+				style="float: right; width: 30%; margin-right: 15%">
 		</div>
 		<div style="padding-top: 10%;">
 			<h2>Select the type of panel:</h2>
 			<select id="panel" style="margin-left: 10%">
-				<option value="img/monocrystalline.png">SolarA</option>
-				<option value="img/panel2.jpg">SolarB</option>
-				<option value="img/panel1.jpg">SolarC</option>
+				<option value="img/monocrystalline.png">Monocrystalline
+					Panels(15%)</option>
+				<option value="img/polycrystalline.jpg">Polycrystalline
+					Panels(13%)</option>
+				<option value="img/thin_film_solar_panels.jpg">Thin film
+					solar Panels(10%)</option>
 			</select>
 		</div>
 	</div>
 	<div style="width: 49%; float: right; margin-left: 1%">
-		<img src="img/sunrays.jpg"> <img src="img/sunrays.jpg"> <img
-			src="img/sunrays.jpg"> <img src="img/sunrays.jpg">
+		<!-- <img src="img/sunrays.jpg"> <img src="img/sunrays.jpg"> <img
+			src="img/sunrays.jpg"> <img src="img/sunrays.jpg"> -->
+		<!-- <ul id="imagesList">
+			  <li>No images found</li>
+			</ul> -->
+
+		<div id="imagesList" style="width: auto;"></div>
+
+
 	</div>
 </body>
 </html>
