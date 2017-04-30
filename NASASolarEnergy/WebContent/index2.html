@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title>Dashed Lines with Smoothing</title>
+<link class="include" rel="stylesheet" type="text/css"
+	href="../src/jquery.jqplot.css" />
+<link rel="stylesheet" type="text/css" href="examples.css" />
+<link type="text/css" rel="stylesheet"
+	href="syntaxhighlighter/styles/shCoreDefault.min.css" />
+<link type="text/css" rel="stylesheet"
+	href="syntaxhighlighter/styles/shThemejqPlot.min.css" />
+				<style type="text/css">
+.jqplot-target {
+	margin-bottom: 2em;
+}
+
+p {
+	margin: 2em 0;
+}
+</style>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../src/excanvas.js"></script><![endif]-->
+<script class="include" type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script class="include" type="text/javascript"
+	src="jqplot\jquery.jqplot.js"></script>
+<script class="include" type="text/javascript" src="jqplotdist/plugins/jqplot.barRenderer.js"></script>
+<script class="include" type="text/javascript" src="../src/jquery.jqplot.js"></script>
+<script class="code" type="text/javascript">
+	$(document).ready(
+			function() {		
+				s1 = [[1,2.28875],[2,2.943333333],[3,2.733333333],[4,2.344545455],[5,2.6075],[6,1.769],[7,23.375],[8,120.5677778],[9,464.3775],[10,750.097],[11,944.611],[12,1006.49],[13,1070.048571],[14,1024.253636],[15,903.5045455],[16,736.981],[17,492.1525],[18,119.156],[19,11.46111111],[20,2.602727273],[21,2.500833333],[22,2.620833333],[23,2.335833333],[0,2.348333333]];
+				s2=[[1,2.22],[2,2.704166667],[3,2.713636364],[4,2.316666667],[5,2.376666667],[6,2.255833333],[7,23.47083333],[8,298.7666667],[9,545.4236364],[10,763.2625],[11,924.1033333],[12,1026.23],[13,1057.320833],[14,1015.373333],[15,920.074],[16,624.1791667],[17,444.0125],[18,246.9508333],[19,36.93333333],[20,2.778333333],[21,2.640833333],[22,2.000833333],[23,2.3275],[0,2.719166667]];
+				// Here is the default dotted line.
+				plot1 = $.jqplot("chart1", [ s1 ], {
+					seriesDefaults : {
+						linePattern : 'dotted',
+						showMarker : false,
+						shadow : false
+					}
+				});
+				
+				plot2 = $.jqplot("chart2", [ s2 ], {
+					seriesDefaults : {
+						linePattern : 'dotted',
+						showMarker : false,
+						shadow : false
+					}
+				});
+				$("#chart2").hide();
+				$("#messageDiv").text("Peak hour for today is xx hrs");
+				$('#panel').on('change', function (e) {
+				    var optionSelected = $("option:selected", this);
+				    var valueSelected = this.value;
+				    if (valueSelected == "1") {
+						$("#chart1").show();
+						$("#chart2").hide();
+						$("#messageDiv").text("Peak hour for today is xx hrs");
+					} else if (valueSelected == "2") {
+						$("#chart1").hide();
+						$("#chart2").show();
+						$("#messageDiv").text("Peak hour for today is yy hrs");
+					}
+				});
+				
+			});
+</script>
+</head>
+<body>
+<h2>Good Morning!</h2>
+
+	<div style="padding-top: 1%;">
+		Select the date<select id="panel" style="margin-left: 10%">
+			<option value="1">9/1/2016</option>
+			<option value="2">9/2/2016</option>
+		</select>
+	</div>
+	<div id="messageDiv" style="margin-top: 20px; margin-left: 20px; "></div>
+	<div id="chart1" style="margin-top: 20px; margin-left: 20px; width: 600px; height: 300px; "></div>
+	<div id="chart2" style="margin-top: 20px; margin-left: 20px; width: 600px; height: 300px; "></div>
+</body>
+</html>

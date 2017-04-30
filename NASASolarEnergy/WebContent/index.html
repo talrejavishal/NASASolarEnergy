@@ -3,13 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jQuery UI Slider - Range slider</title>
+<title>Solar Power Enabling Life</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="css/sheet1.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script>
 	var filteredRes = [];
 	var sumRadiation = 0;
@@ -17,8 +16,82 @@
 	var filteredProducts = [];
 	var areaSolarPanel = 72;
 	var efficiency = 0.015;//by defautl Monocrystalline Panels
-
+	var startTime=0;
+	var endTime=0;
+	
 	$(function() {
+		
+		var panel_image = $("#panel_image");
+
+		$("#panel").selectmenu({
+			change : function(event, data) {
+				$('#panel_image').attr("src", $('#panel').val());
+				//as per selection of panel updating the efficiency var
+				var name = $("#panel :selected").text();
+				if (name == "Monocrystalline Panels(15%)") {
+					efficiency = 0.015;
+				} else if (name == "Polycrystalline Panels(13%)") {
+					efficiency = 0.013;
+				} else if (name == "Thin film solar Panels(10%)") {
+					efficiency = 0.010;
+				}
+				updateDevices();
+			}
+		});
+
+		
+		function updateDevices(){
+			sumRadiation=0;
+			filteredRes.forEach(function(radiationObj) {
+				var loopTime = parseInt(radiationObj.TIME
+						.split(":")[0]);
+				if (loopTime >= startTime
+						&& loopTime < endTime) {
+					sumRadiation += radiationObj.RADIATION;
+				}
+			});
+
+			powerGenerated = sumRadiation * areaSolarPanel * efficiency;
+
+			this.xhr = $.ajax({
+				crossDomain : true,
+				url : "data/convertcsv2.json",
+				type : "get",
+				accept : "application/json",
+				contentType : "application/json; charset=utf-8",
+				dataType : "json",
+				success : function(response) {
+					filteredProducts = [];
+					response.forEach(function(powerObj) {
+						if (powerObj.POWER <= powerGenerated) {
+							filteredProducts.push(powerObj);
+						}
+					});
+					// Clear all images meaning remove all devices
+					$("#imagesList").empty();
+
+					//load image array adding images to div 
+
+					$.each(filteredProducts, function() {
+
+						var path = this.IMAGE_URL;
+
+						$('<img />').attr('src', "" + path + "") // ADD IMAGE PROPERTIES.
+						.width('140px').height('140px').appendTo(
+								$('#imagesList'));
+					});
+
+				},
+				error : function(xhr, status, error) {
+					var err = JSON.parse(xhr.responseText);
+					console(err.Message);
+				},
+				fail : function(response) {
+					console.log("fail");
+					console.log(response)
+				}
+			});
+		};
 
 		$("#slider-range").slider(
 				{
@@ -32,61 +105,9 @@
 						filteredProducts = [];
 						$("#amount").val(
 								ui.values[0] + " - " + ui.values[1] + " hrs");
-						filteredRes.forEach(function(radiationObj) {
-							var loopTime = parseInt(radiationObj.TIME
-									.split(":")[0]);
-							if (loopTime >= parseInt(ui.values[0])
-									&& loopTime < parseInt(ui.values[1])) {
-								sumRadiation += radiationObj.RADIATION;
-							}
-						});
-						console.log("efficiency" + efficiency);
-						console.log("sumRadiation " + sumRadiation);
-						powerGenerated = sumRadiation * areaSolarPanel
-								* efficiency; //as per puneet requirment
-						console.log("powerGenerated " + powerGenerated);
-
-						this.xhr = $.ajax({
-							crossDomain : true,
-							url : "data/convertcsv2.json",
-							type : "get",
-							accept : "application/json",
-							contentType : "application/json; charset=utf-8",
-							dataType : "json",
-							success : function(response) {
-								filteredProducts = [];
-								response.forEach(function(powerObj) {
-									if (powerObj.POWER <= powerGenerated) {
-										filteredProducts.push(powerObj);
-									}
-								});
-								// Clear all images meaning remove all devices
-								$("#imagesList").empty();
-								console.log(filteredRes.length);
-								console.log(filteredProducts);
-
-								//load image array adding images to div 
-
-								$.each(filteredProducts, function() {
-
-									var path = this.IMAGE_URL;
-									console.log(path);
-
-									$('<img />').attr('src', "" + path + "") // ADD IMAGE PROPERTIES.
-									.width('140px').height('140px').appendTo(
-											$('#imagesList'));
-								});
-
-							},
-							error : function(xhr, status, error) {
-								var err = JSON.parse(xhr.responseText);
-								console(err.Message);
-							},
-							fail : function(response) {
-								console.log("fail");
-								console.log(response)
-							}
-						});
+						startTime=parseInt(ui.values[0]);
+						endTime=parseInt(ui.values[1]);
+						updateDevices();
 					}
 				});
 		$("#amount").val(
@@ -107,11 +128,7 @@
 					prevText : "Earlier",
 					defaultDate : new Date(2016, 08, 01),
 					onSelect : function(date) {
-						console.log(date);
 						var d = new Date(date);
-						console.log("d.getDate() " + d.getDate());
-						console.log("d.getMonth() " + d.getMonth());
-						console.log("d.getDay() " + d.getFullYear());
 						var data;
 						$.support.cors = true;
 						this.xhr = $.ajax({
@@ -122,8 +139,6 @@
 							contentType : "application/json; charset=utf-8",
 							dataType : "json",
 							success : function(response) {
-								console.log("success");
-								console.log(response[0].DATE + ", " + date);
 								var selectedDate = $.datepicker.parseDate(
 										"yy-mm-dd", date);
 								filteredRes = [];
@@ -135,7 +150,6 @@
 										filteredRes.push(radiationObj);
 									}
 								});
-								console.log(filteredRes.length);
 							},
 							error : function(xhr, status, error) {
 								var err = JSON.parse(xhr.responseText);
@@ -151,38 +165,16 @@
 					dateFormat : 'yy-mm-dd'
 				});
 	});
-
-	$(function() {
-		var panel_image = $("#panel_image");
-
-		$("#panel").selectmenu({
-			change : function(event, data) {
-				$('#panel_image').attr("src", $('#panel').val());
-				//as per selection of panel updating the efficiency var
-				var name = $("#panel :selected").text();
-				if (name == "Monocrystalline Panels(15%)") {
-					efficiency = 0.015;
-				} else if (name == "Polycrystalline Panels(13%)") {
-					efficiency = 0.013;
-				} else if (name == "Thin film solar Panels(10%)") {
-					efficiency = 0.010;
-				}
-
-				console.log("efficiency" + efficiency);
-			}
-		});
-
-	});
 </script>
 </head>
 <body style="background-color: #fafafa">
 	<div>
-
-
 		<div style="text-align: center">
-			<h1>Solar Power Enabling Life - Future Martians</h1>
+			<h1>Solar Power Enabling Life</h1>
+			<div style="text-align: right; padding-right: 25%">
+			<h3> <i>- Future Martians</i></h3>
 		</div>
-		</p>
+		</div>
 	</div>
 	<div>
 		<p>
@@ -207,12 +199,9 @@
 		<div style="padding-top: 10%;">
 			<h2>Select the type of panel:</h2>
 			<select id="panel" style="margin-left: 10%">
-				<option value="img/monocrystalline.png">Monocrystalline
-					Panels(15%)</option>
-				<option value="img/polycrystalline.jpg">Polycrystalline
-					Panels(13%)</option>
-				<option value="img/thin_film_solar_panels.jpg">Thin film
-					solar Panels(10%)</option>
+				<option value="img/monocrystalline.png">Monocrystalline Panels(15%)</option>
+				<option value="img/polycrystalline.jpg">Polycrystalline Panels(13%)</option>
+				<option value="img/thin_film_solar_panels.jpg">Thin film solar Panels(10%)</option>
 			</select>
 		</div>
 	</div>
