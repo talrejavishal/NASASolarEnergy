@@ -49,8 +49,8 @@
 			});
 
 			powerGenerated = sumRadiation * areaSolarPanel * efficiency;
-
-			this.xhr = $.ajax({
+			console.log(powerGenerated);
+					this.xhr = $.ajax({
 				crossDomain : true,
 				url : "data/convertcsv2.json",
 				type : "get",
@@ -68,14 +68,16 @@
 					$("#imagesList").empty();
 
 					//load image array adding images to div 
-
+						
 					$.each(filteredProducts, function() {
-
+							
 						var path = this.IMAGE_URL;
 
 						$('<img />').attr('src', "" + path + "") // ADD IMAGE PROPERTIES.
 						.width('140px').height('140px').appendTo(
 								$('#imagesList'));
+						
+						
 					});
 
 				},
@@ -122,6 +124,7 @@
 		for (var i = 0; i < max - 3; i++) {
 			$('<span class="ui-slider-tick-mark"></span>').css('left',
 					(spacing * i) + '%').appendTo($slider);
+			 
 		}
 		$("#datepicker").datepicker(
 				{
@@ -192,6 +195,7 @@
 		<div id="slider-range" style="width: 100%"></div>
 	</div>
 	<br>
+	<div style="width=100%">
 	<div style="width: 50%; float: left;">
 		<div style="margin-left: 15%">
 			<img src="img/images.jpg" width="30%">
@@ -205,7 +209,7 @@
 			<select id="panel" style="margin-left: 10%">
 				<option value="img/monocrystalline.png">Monocrystalline Panels(15%)</option>
 				<option value="img/polycrystalline.jpg">Polycrystalline Panels(13%)</option>
-				<option value="img/thin_film_solar_panels.jpg">Thin film solar Panels(10%)</option>
+				<option value="img/thin_film_solar_cells.jpg">Thin film solar Panels(10%)</option>
 			</select>
 		</div>
 	</div>
@@ -213,5 +217,8 @@
 	<div id="imagesList" style="width: auto;"></div>
 	
 	</div>
+	</div>
+	
+	
 </body>
 </html>
