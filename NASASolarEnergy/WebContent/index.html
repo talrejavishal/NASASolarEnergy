@@ -16,11 +16,11 @@
 	var filteredProducts = [];
 	var areaSolarPanel = 72;
 	var efficiency = 0.015;//by defautl Monocrystalline Panels
-	var startTime=0;
-	var endTime=0;
-	
+	var startTime = 0;
+	var endTime = 0;
+
 	$(function() {
-		
+
 		var panel_image = $("#panel_image");
 
 		$("#panel").selectmenu({
@@ -39,14 +39,11 @@
 			}
 		});
 
-		
-		function updateDevices(){
-			sumRadiation=0;
+		function updateDevices() {
+			sumRadiation = 0;
 			filteredRes.forEach(function(radiationObj) {
-				var loopTime = parseInt(radiationObj.TIME
-						.split(":")[0]);
-				if (loopTime >= startTime
-						&& loopTime < endTime) {
+				var loopTime = parseInt(radiationObj.TIME.split(":")[0]);
+				if (loopTime >= startTime && loopTime < endTime) {
 					sumRadiation += radiationObj.RADIATION;
 				}
 			});
@@ -91,7 +88,8 @@
 					console.log(response)
 				}
 			});
-		};
+		}
+		;
 
 		$("#slider-range").slider(
 				{
@@ -104,15 +102,17 @@
 						powerGenerated = 0;
 						filteredProducts = [];
 						$("#amount").val(
-								ui.values[0] + " - " + ui.values[1] + " hrs");
-						startTime=parseInt(ui.values[0]);
-						endTime=parseInt(ui.values[1]);
+								"Time Selected : " + ui.values[0] + " - "
+										+ ui.values[1] + " hrs");
+						startTime = parseInt(ui.values[0]);
+						endTime = parseInt(ui.values[1]);
 						updateDevices();
 					}
 				});
 		$("#amount").val(
-				$("#slider-range").slider("values", 0) + " - "
-						+ $("#slider-range").slider("values", 1) + " hrs");
+				"Time Selected : " + $("#slider-range").slider("values", 0)
+						+ " - " + $("#slider-range").slider("values", 1)
+						+ " hrs");
 
 		var $slider = $('#slider-range');
 		var max = $slider.slider("option", "max");
@@ -167,24 +167,28 @@
 	});
 </script>
 </head>
-<body style="background-color: #fafafa">
+<body
+	style="background-color: #fafafa; font: 18px Avenir W01, Helvetica, Arial, sans-serif; margin-left: 10%; margin-right: 10%">
 	<div>
 		<div style="text-align: center">
 			<h1>Solar Power Enabling Life</h1>
 			<div style="text-align: right; padding-right: 25%">
-			<h3> <i>- Future Martians</i></h3>
-		</div>
+				<h3>
+					<i>- Future Martians</i>
+				</h3>
+			</div>
 		</div>
 	</div>
 	<div>
-		<p>
-		<p>
-			Date: <input type="text" id="datepicker" onclick="click()">
-		</p>
-		<input type="text" id="amount" readonly
-			style="border: 0; color: #f6931f; font-weight: bold;">
+		<div>
 
-		</p>
+			Select a Date: <input type="text" id="datepicker" onclick="click()">
+
+
+			<input type="text" id="amount" readonly
+				style="border: 0; color: #f6931f; background-color: #fafafa; font-weight: bold; float: right">
+		</div>
+		<br>
 		<div id="slider-range" style="width: 100%"></div>
 	</div>
 	<br>
@@ -199,9 +203,12 @@
 		<div style="padding-top: 10%;">
 			<h2>Select the type of panel:</h2>
 			<select id="panel" style="margin-left: 10%">
-				<option value="img/monocrystalline.png">Monocrystalline Panels(15%)</option>
-				<option value="img/polycrystalline.jpg">Polycrystalline Panels(13%)</option>
-				<option value="img/thin_film_solar_panels.jpg">Thin film solar Panels(10%)</option>
+				<option value="img/monocrystalline.png">Monocrystalline
+					Panels(15%)</option>
+				<option value="img/polycrystalline.jpg">Polycrystalline
+					Panels(13%)</option>
+				<option value="img/thin_film_solar_panels.jpg">Thin film
+					solar Panels(10%)</option>
 			</select>
 		</div>
 	</div>
@@ -216,5 +223,7 @@
 
 
 	</div>
+
+
 </body>
 </html>
