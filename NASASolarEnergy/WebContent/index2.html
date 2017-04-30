@@ -3,7 +3,7 @@
 <html>
 <head>
 
-<title>Dashed Lines with Smoothing</title>
+<title>Intelligence Recommendation to Hi-Seas Crew</title>
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../src/excanvas.js"></script><![endif]-->
 <script class="include" type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -27,7 +27,7 @@
 				          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 				        },
 				        yaxis:{
-				          label:'Radiation(W/m^2)',
+				          label:'Rad(W/m^2)',
 				          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 				        }
 				      }
@@ -44,13 +44,14 @@
 				          label:'Hours (24 HR Format)'
 				        },
 				        yaxis:{
-				          label:'Radiation(W/m^2)'
+				          label:'Rad(W/m^2)'
 				        }
 				      }
 				});
 				$("#chart2").hide();
 				$("#messageDiv").text("Peak Hour Duration : 10:00 - 15:00 HRS");
-				$("#messageDiv2").text("Mean Radiation :  ");
+				$("#messageDiv2").text("Mean Radiation :  320.59 W/m^2");
+				$("#messageDiv3").text("Maximum Radiation :  1070.049 W/m^2");
 				$('#panel').on('change', function (e) {
 				    var optionSelected = $("option:selected", this);
 				    var valueSelected = this.value;
@@ -58,12 +59,14 @@
 						$("#chart1").show();
 						$("#chart2").hide();
 						$("#messageDiv").text("Peak Hour Duration : 10:00 - 15:00 HRS");
-						$("#messageDiv2").text("Mean Radiation :  ");
+						$("#messageDiv2").text("Mean Radiation :  320.59 W/m^2");
+						$("#messageDiv3").text("Maximum Radiation :  1070.049 W/m^2");
 					} else if (valueSelected == "2") {
 						$("#chart1").hide();
 						$("#chart2").show();
 						$("#messageDiv").text("Peak Hour Duration : 10:00 - 16:30 HRS");
-						$("#messageDiv2").text("Mean Radiation :  ");
+						$("#messageDiv2").text("Mean Radiation :  258.7 W/m^2");
+						$("#messageDiv3").text("Maximum Radiation :  1057.321 W/m^2");
 					}
 				});
 				
@@ -72,16 +75,17 @@
 </head>
 <body>
 <h2>Good Morning!</h2>
-
-	<div style="padding-top: 1%;">
-		Select the date<select id="panel" style="margin-left: 10%">
+<h4>This is the estimated energy prediction for Today</h4>
+	<div>
+		Select the date<select id="panel" style="margin-left: 2%">
 			<option value="1">9/1/2016</option>
 			<option value="2">9/2/2016</option>
 		</select>
 	</div>
-	<div id="messageDiv" style="margin-top: 20px; margin-left: 20px; "></div>
-	<div id="messageDiv2" style="margin-top: 20px; margin-left: 20px; "></div>
-	<div id="chart1" style="margin-top: 20px; margin-left: 20px; width: 900px; height: 450px;"></div>
-	<div id="chart2" style="margin-top: 20px; margin-left: 20px; width: 900px; height: 450px; "></div>
+	<div id="messageDiv" style="margin-top: 10px; margin-left: 450px; "></div>
+	<div id="messageDiv2" style="margin-top: 10px; margin-left: 450px; "></div>
+	<div id="messageDiv3" style="margin-top: 10px; margin-left: 450px; "></div>
+	<div id="chart1" style="margin-top: 10px; margin-left: 20px; width: 900px; height: 450px; margin-left: 250px; "></div>
+	<div id="chart2" style="margin-top: 10px; margin-left: 20px; width: 900px; height: 450px; margin-left: 250px; "></div>
 </body>
 </html>
