@@ -10,14 +10,14 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-	var filteredRes = [];
-	var sumRadiation = 0;
-	var powerGenerated = 0;
-	var filteredProducts = [];
-	var areaSolarPanel = 72;
-	var efficiency = 0.015;//by defautl Monocrystalline Panels
-	var startTime = 0;
-	var endTime = 0;
+	filteredRes = [];
+	sumRadiation = 0;
+	powerGenerated = 0;
+	filteredProducts = [];
+	areaSolarPanel = 72;
+	efficiency = 0.15;//by defautl Monocrystalline Panels
+	startTime = 0;
+	endTime = 0;
 
 	$(function() {
 
@@ -29,7 +29,7 @@
 				//as per selection of panel updating the efficiency var
 				var name = $("#panel :selected").text();
 				if (name == "Monocrystalline Panels(15%)") {
-					efficiency = 0.015;
+					efficiency = 0.15;
 				} else if (name == "Polycrystalline Panels(13%)") {
 					efficiency = 0.013;
 				} else if (name == "Thin film solar Panels(10%)") {
@@ -203,12 +203,9 @@
 		<div style="padding-top: 10%;">
 			<h2>Select the type of panel:</h2>
 			<select id="panel" style="margin-left: 10%">
-				<option value="img/monocrystalline.png">Monocrystalline
-					Panels(15%)</option>
-				<option value="img/polycrystalline.jpg">Polycrystalline
-					Panels(13%)</option>
-				<option value="img/thin_film_solar_panels.jpg">Thin film
-					solar Panels(10%)</option>
+				<option value="img/monocrystalline.png">Monocrystalline Panels(15%)</option>
+				<option value="img/polycrystalline.jpg">Polycrystalline Panels(13%)</option>
+				<option value="img/thin_film_solar_panels.jpg">Thin film solar Panels(10%)</option>
 			</select>
 		</div>
 	</div>
@@ -220,11 +217,7 @@
 			</ul> -->
 
 	<div id="imagesList" style="width: auto;"></div>
-
-
-	</div>
 	
-
-
+	</div>
 </body>
 </html>
