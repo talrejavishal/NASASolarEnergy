@@ -38,6 +38,28 @@
 				updateDevices();
 			}
 		});
+		
+		$( "#addDeviceBtn" ).click(function(){
+			var selectedDeviceName=$("#selectedDevicesId option:selected").text().replace(' ','');
+			$("#powerSliderContainerTblId").append('<tr><td style="width:200px; height:40px;">'+selectedDeviceName+'</td><td style="width:600px; height:40px;">'+'<div id="'+selectedDeviceName+'Id'+'"></div>'+'</td></tr>');
+			$("#"+selectedDeviceName+'Id').slider(
+					{
+						range : true,
+						min : 0,
+						max : 24,
+						values : [ 0, 0 ],
+						slide : function(event, ui) {
+						}
+					});
+			var $slider = $("#"+selectedDeviceName+'Id');
+			var max = $slider.slider("option", "max");
+			var spacing = 5;
+			$slider.find('.ui-slider-tick-mark').remove();
+			for (var i = 0; i < max - 3; i++) {
+				$('<span class="ui-slider-tick-mark"></span>').css('left',
+						(spacing * i) + '%').appendTo($slider);
+			}
+		});
 
 		function updateDevices() {
 			sumRadiation = 0;
@@ -68,16 +90,16 @@
 					$("#imagesList").empty();
 
 					//load image array adding images to div 
-						
+					$('#selectedDevicesId').empty();
 					$.each(filteredProducts, function() {
-							
 						var path = this.IMAGE_URL;
-
 						$('<img />').attr('src', "" + path + "") // ADD IMAGE PROPERTIES.
-						.width('140px').height('140px').appendTo(
-								$('#imagesList'));
-						
-						
+						.width('140px').height('140px').appendTo($('#imagesList'));
+						$("#selectedDevicesId").append($('<option>', { 
+		                    value: this.POWER,
+		                    text : this.ITEM
+		                	})
+		        		);
 					});
 
 				},
@@ -90,8 +112,8 @@
 					console.log(response)
 				}
 			});
-		}
-		;
+			$('#selectedDevicesId').empty();
+		};
 
 		$("#slider-range").slider(
 				{
@@ -115,17 +137,16 @@
 				"Time Selected : " + $("#slider-range").slider("values", 0)
 						+ " - " + $("#slider-range").slider("values", 1)
 						+ " hrs");
-
+		//Tick Mark
 		var $slider = $('#slider-range');
 		var max = $slider.slider("option", "max");
 		var spacing = 5;
-
 		$slider.find('.ui-slider-tick-mark').remove();
 		for (var i = 0; i < max - 3; i++) {
 			$('<span class="ui-slider-tick-mark"></span>').css('left',
 					(spacing * i) + '%').appendTo($slider);
-			 
 		}
+		
 		$("#datepicker").datepicker(
 				{
 					prevText : "Earlier",
@@ -187,7 +208,6 @@
 
 			Select a Date: <input type="text" id="datepicker" onclick="click()">
 
-
 			<input type="text" id="amount" readonly
 				style="border: 0; color: #f6931f; background-color: #fafafa; font-weight: bold; float: right">
 		</div>
@@ -215,10 +235,15 @@
 	</div>
 	<div style="width: 49%; float: right; margin-left: 1%">		
 	<div id="imagesList" style="width: auto;"></div>
-	
 	</div>
 	</div>
-	
+	<div id="powerCalcDivId">
+		Add a device: <select id="selectedDevicesId" style="margin-left: 10%"></select>
+		<button id="addDeviceBtn"> + </button>
+	</div>
+	<div id="powerSliderContainer" style="margin-left: 10%; margin-right: 10%; margin-top: 2%;"></div>
+	<table id="powerSliderContainerTblId"></table>
+	</div>
 	
 </body>
 </html>
