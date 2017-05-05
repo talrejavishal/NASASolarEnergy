@@ -18,6 +18,7 @@
 	efficiency = 0.15;//by defautl Monocrystalline Panels
 	startTime = 0;
 	endTime = 0;
+	mapInitialValue=[];
 
 	$(function() {
 
@@ -40,15 +41,14 @@
 		});
 		
 		$( "#addDeviceBtn" ).click(function(){
-			var selectedDeviceName=$("#selectedDevicesId option:selected").text().replace(' ','');
-			$("#powerSliderContainerTblId").append('<tr><td style="width:200px; height:40px;">'+selectedDeviceName+'</td><td style="width:600px; height:40px;">'+'<div id="'+selectedDeviceName+'Id'+'"></div>'+'</td></tr>');
+			var selectedDeviceName=$("#selectedDevicesId option:selected").text().trim().replace(/\s/g,'');			
+			$("#powerSliderContainerTblId").append('<tr><td style="width:200px; height:40px;">'+selectedDeviceName+'</td><td style="width:600px; height:40px;">'+'<div id="'+selectedDeviceName+'Id'+'"></div>'+'</td><td id="'+selectedDeviceName+'HourLblId" style="width: 100px; text-align: right;">4 hrs</td></tr>');
 			$("#"+selectedDeviceName+'Id').slider(
 					{
-						range : true,
-						min : 0,
+						value : 4,
 						max : 24,
-						values : [ 0, 0 ],
 						slide : function(event, ui) {
+							$("#"+selectedDeviceName+"HourLblId").text(parseInt(ui.value)+" hrs");
 						}
 					});
 			var $slider = $("#"+selectedDeviceName+'Id');
