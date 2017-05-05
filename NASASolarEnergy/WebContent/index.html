@@ -42,7 +42,7 @@
 		
 		$( "#addDeviceBtn" ).click(function(){
 			var selectedDeviceName=$("#selectedDevicesId option:selected").text().trim().replace(/\s/g,'');		
-			$("#powerSliderContainerTblId").append('<tr><td style="width:200px; height:40px;">'+selectedDeviceName+'</td><td style="width:600px; height:40px;">'+'<div id="'+selectedDeviceName+'Id'+'"></div>'+'</td><td id="'+selectedDeviceName+'HourLblId" style="width: 100px; text-align: right;">4 hrs</td></tr>');
+			$("#powerSliderContainerTblId").append('<tr><td style="width:200px; height:40px;">'+$("#selectedDevicesId option:selected").text()+'</td><td style="width:600px; height:40px;">'+'<div id="'+selectedDeviceName+'Id'+'"></div>'+'</td><td id="'+selectedDeviceName+'HourLblId" style="width: 100px; text-align: right;">4 hrs</td></tr>');
 			var intialDeviceRun=0;
 			if(selectedDeviceName==='BULB'){
 				intialDeviceRun=4;
