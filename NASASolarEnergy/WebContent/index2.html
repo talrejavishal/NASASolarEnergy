@@ -22,8 +22,7 @@ var slideIndex;
 				plot1 = $.jqplot("chart1", [ s1 ], {
 					seriesDefaults : {
 						linePattern : 'dotted',
-						showMarker : false,
-						shadow : false
+						showMarker : false
 					},
 					axes:{
 				        xaxis:{
@@ -40,15 +39,16 @@ var slideIndex;
 				plot2 = $.jqplot("chart2", [ s2 ], {
 					seriesDefaults : {
 						linePattern : 'dotted',
-						showMarker : false,
-						shadow : false
+						showMarker : false
 					},
 					axes:{
-				        xaxis:{
-				          label:'Hours (24 HR Format)'
+				        xaxis:{	
+				          label:'Hours (24 HR Format)',
+				          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 				        },
 				        yaxis:{
-				          label:'Rad(W/m^2)'
+				          label:'Rad(W/m^2)',
+				          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 				        }
 				      }
 				});
@@ -117,19 +117,20 @@ var slideIndex;
 			</div>
 		</div>
 	</div>
-<h4>Good Morning! This is the intelligent Prediction for you.</h4>
+<!-- <h4>Good Morning! This is the intelligent Prediction for you.</h4> -->
 	<div>
 		Select the date<select id="panel" style="margin-left: 2%">
 			<option value="1">9/1/2016</option>
 			<option value="2">9/2/2016</option>
 		</select>
+		 <div id="messageDiv" style="float:right "></div>
 	</div>
-	<div id="messageDiv" style="margin-top: 10px; margin-left: 450px; "></div>
-	<div id="messageDiv2" style="margin-top: 10px; margin-left: 450px; "></div>
+	 <!-- <div id="messageDiv" style="margin-top: 10px; margin-left: 450px; "></div>
+	 <div id="messageDiv2" style="margin-top: 10px; margin-left: 450px; "></div>
 	<div id="messageDiv3" style="margin-top: 10px; margin-left: 450px; "></div>
-	<div id="messageDiv4" style="margin-top: 10px; margin-left: 450px; "></div>
-	<div id="chart1" style="margin-top: 10px; margin-left: 20px; width: 900px; height: 450px; margin-left: 100px;  "></div>
-	<div id="chart2" style="margin-top: 10px; margin-left: 20px; width: 900px; height: 450px; margin-left: 100px; "></div>
+	<div id="messageDiv4" style="margin-top: 10px; margin-left: 450px; "></div>  -->
+	<div id="chart1" style="margin-top: 10px;  width: 900px; height: 400px; margin-left: 100px;  "></div>
+	<div id="chart2" style="margin-top: 10px; margin-left: 20px; width: 900px; height: 400px; margin-left: 100px; "></div>
 	<!-- <div>
 		<h3>Activity Recommendation (Based on priority)</h3>
 	<ul>
@@ -137,7 +138,7 @@ var slideIndex;
 		<li style="list-style-image: url('img/Mark.jpg');margin-left:10%"> <p style="text-align:left;margin-left:5%">Research , Food , Exercise</p></li>
 	</ul>
 	</div> -->
-	<br><br>
+	
 <!--  <div class="w3-content w3-display-container" style="width:3000%;">
   <img class="mySlides" src="img/mars-hi-seas-bed.jpg" style="width:100%; height:20%">
   <img class="mySlides" src="img/return-from-mars-1.jpg" style="width:100%">

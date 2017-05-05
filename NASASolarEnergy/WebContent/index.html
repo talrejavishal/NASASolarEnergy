@@ -126,8 +126,8 @@
 						powerGenerated = 0;
 						filteredProducts = [];
 						$("#amount").val(
-								"Time Selected : " + ui.values[0] + " - "
-										+ ui.values[1] + " hrs");
+								"Time Selected : " + ui.values[0] +":00" + " - "
+										+ ui.values[1] + ":00");
 						startTime = parseInt(ui.values[0]);
 						endTime = parseInt(ui.values[1]);
 						updateDevices();
@@ -135,8 +135,8 @@
 				});
 		$("#amount").val(
 				"Time Selected : " + $("#slider-range").slider("values", 0)
-						+ " - " + $("#slider-range").slider("values", 1)
-						+ " hrs");
+						+":00"+ " - " + $("#slider-range").slider("values", 1)
+						+ ":00");
 		//Tick Mark
 		var $slider = $('#slider-range');
 		var max = $slider.slider("option", "max");
@@ -195,19 +195,26 @@
 	style="background-color: #fafafa; font: 18px Avenir W01, Helvetica, Arial, sans-serif; margin-left: 10%; margin-right: 10%">
 	<div>
 		<div style="text-align: center">
-			<h1>Solar Power Enabling Life</h1>
+			<!-- <h1>Solar Power Enabling Life</h1>
 			<div style="text-align: right; padding-right: 25%">
 				<h3>
 					<i>- Future Martians</i>
 				</h3>
-			</div>
+			</div> -->
+			<img src="img/Helios.png" style="width:20%;">
+			
 		</div>
 	</div>
+	<br>
 	<div>
+	
 		<div>
 
 			Select a Date: <input type="text" id="datepicker" onclick="click()">
-
+			Location: <select id="panel" style="height:50%">
+			<option value="1">Texas, USA</option>
+			<option value="2">California, USA</option>
+		</select>
 			<input type="text" id="amount" readonly
 				style="border: 0; color: #f6931f; background-color: #fafafa; font-weight: bold; float: right">
 		</div>
@@ -233,9 +240,9 @@
 			</select>
 		</div>
 	</div>
-	<div style="width: 49%; float: right; margin-left: 1%">		
-	<div id="imagesList" style="width: auto;"></div>
-	</div>
+	<div style="width: 49%; float: right; margin-left: 1%; height: 280px; overflow-y:auto;">
+			<div id="imagesList" style="width: auto;"></div>
+		</div>
 	</div>
 	<div id="powerCalcDivId" style="width: 100%; float: left; margin-top:2%;">
 		Add a device: <select id="selectedDevicesId" style="margin-left: 10%"></select>
