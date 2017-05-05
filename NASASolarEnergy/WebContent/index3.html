@@ -34,7 +34,6 @@ var slideIndex;
 				        }
 				      }
 				});
-				
 				plot2 = $.jqplot("chart2", [ s2 ], {
 					seriesDefaults : {
 						linePattern : 'dotted',
@@ -75,15 +74,10 @@ var slideIndex;
 						$("#messageDiv4").text("Total Radiation :  7953.155 W/m^2");
 					}
 				});
-				
 				$(window).bind("load", function() { 
 					slideIndex = 1;
 					showDivs(slideIndex);	
-					
-			});
-				
-				
-				
+				});
 			});
 	function plusDivs(n) {
 		  showDivs(slideIndex += n);
@@ -108,13 +102,10 @@ var slideIndex;
 <div>
 		<div style="text-align: center">
 			<h1>Hi Joshua Ehrlich ! This is your recommended energy consumption chart.</h1>
-		
 		</div>
 	</div>
 <br>
-
 	 <div>
-			
 		<img class="mySlides" src="img/Joshua Ehrlich.png" style="width:15%;margin-left:40%; height:5%">
 	</div>
 	<br>
