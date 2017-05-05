@@ -41,16 +41,49 @@
 		});
 		
 		$( "#addDeviceBtn" ).click(function(){
-			var selectedDeviceName=$("#selectedDevicesId option:selected").text().trim().replace(/\s/g,'');			
+			var selectedDeviceName=$("#selectedDevicesId option:selected").text().trim().replace(/\s/g,'');		
 			$("#powerSliderContainerTblId").append('<tr><td style="width:200px; height:40px;">'+selectedDeviceName+'</td><td style="width:600px; height:40px;">'+'<div id="'+selectedDeviceName+'Id'+'"></div>'+'</td><td id="'+selectedDeviceName+'HourLblId" style="width: 100px; text-align: right;">4 hrs</td></tr>');
+			var intialDeviceRun=0;
+			if(selectedDeviceName==='BULB'){
+				intialDeviceRun=4;
+			}else if(selectedDeviceName==='LCD'){
+				intialDeviceRun=14;
+			}else if(selectedDeviceName==='DESKTOPMONITOR'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='LAPTOP'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='WIFIROUTER'){
+				intialDeviceRun=9;
+			}else if(selectedDeviceName==='PRINTER'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='AIRCONDITIONER'){
+				intialDeviceRun=6;
+			}else if(selectedDeviceName==='OVEN'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='COOKINGSTOVETOP'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='REFRIGERATOR'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='MICROWAVE'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='IRON'){
+				intialDeviceRun=5;
+			}else if(selectedDeviceName==='CEILINGFAN'){
+				intialDeviceRun=5;
+			}
+			$("#"+selectedDeviceName+"HourLblId").text(intialDeviceRun+" hrs");
 			$("#"+selectedDeviceName+'Id').slider(
 					{
-						value : 4,
+						value : intialDeviceRun,
 						max : 24,
 						slide : function(event, ui) {
 							$("#"+selectedDeviceName+"HourLblId").text(parseInt(ui.value)+" hrs");
+							if(selectedDeviceName==='AIRCONDITIONER' && parseInt(ui.value)==9){
+								$("#LCDId").slider('value',8);
+								$("#WIFIROUTERId").slider('value',7);
+							}
 						}
-					});
+			});
 			var $slider = $("#"+selectedDeviceName+'Id');
 			var max = $slider.slider("option", "max");
 			var spacing = 5;
@@ -72,7 +105,7 @@
 
 			powerGenerated = sumRadiation * areaSolarPanel * efficiency;
 			console.log(powerGenerated);
-					this.xhr = $.ajax({
+			this.xhr = $.ajax({
 				crossDomain : true,
 				url : "data/convertcsv2.json",
 				type : "get",
