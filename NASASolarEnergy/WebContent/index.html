@@ -209,12 +209,11 @@
 	<div>
 	
 		<div>
-
-			Select a Date: <input type="text" id="datepicker" onclick="click()">
-			Location: <select id="panel" style="height:50%">
+			Location: <select id="locationSelectId" style="height:50%">
 			<option value="1">Texas, USA</option>
 			<option value="2">California, USA</option>
 		</select>
+		Select a Date: <input type="text" id="datepicker" onclick="click()">
 			<input type="text" id="amount" readonly
 				style="border: 0; color: #f6931f; background-color: #fafafa; font-weight: bold; float: right">
 		</div>
@@ -244,7 +243,7 @@
 			<div id="imagesList" style="width: auto;"></div>
 		</div>
 	</div>
-	<div id="powerCalcDivId" style="width: 100%; float: left; margin-top:2%;">
+	<div id="powerCalcDivId" style="width: 100%; float: left; margin-top:10px;">
 		Add a device: <select id="selectedDevicesId" style="margin-left: 10%"></select>
 		<button id="addDeviceBtn"> + </button>
 	</div>
