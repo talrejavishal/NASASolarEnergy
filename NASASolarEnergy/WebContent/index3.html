@@ -6,78 +6,63 @@
 <title>Intelligent Prediction to Hi-Seas Crew</title>
 <link rel="stylesheet" href="css/sheet2.css">
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../src/excanvas.js"></script><![endif]-->
-<script class="include" type="text/javascript"
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script class="include" type="text/javascript" 	src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script class="include" type="text/javascript" src="jqplot\jquery.jqplot.js"></script>
+<script type="text/javascript" src="jqplotdist/plugins/jqplot.barRenderer.js"></script>
+<script type="text/javascript" src="jqplotdist/plugins/jqplot.categoryAxisRenderer.js"></script>
+<script type="text/javascript" src="jqplotdist/plugins/jqplot.pointLabels.js"></script>
+<link rel="stylesheet" type="text/css" href="jqplotdist/plugins/jquery.jqplot.css" />
 <script class="code" type="text/javascript">
 var slideIndex;
 	$(document).ready(
 			function() {	
-				s1 = [[1,2.28875],[2,2.943333333],[3,2.733333333],[4,2.344545455],[5,2.6075],[6,1.769],[7,23.375],[8,120.5677778],[9,464.3775],[10,750.097],[11,944.611],[12,1006.49],[13,1070.048571],[14,1024.253636],[15,903.5045455],[16,736.981],[17,492.1525],[18,119.156],[19,11.46111111],[20,2.602727273],[21,2.500833333],[22,2.620833333],[23,2.335833333],[0,2.348333333]];
-				s2=[[1,2.22],[2,2.704166667],[3,2.713636364],[4,2.316666667],[5,2.376666667],[6,2.255833333],[7,23.47083333],[8,298.7666667],[9,545.4236364],[10,763.2625],[11,924.1033333],[12,1026.23],[13,1057.320833],[14,1015.373333],[15,920.074],[16,624.1791667],[17,444.0125],[18,246.9508333],[19,36.93333333],[20,2.778333333],[21,2.640833333],[22,2.000833333],[23,2.3275],[0,2.719166667]];
-				// Here is the default dotted line.
-				plot1 = $.jqplot("chart1", [ s1 ], {
-					seriesDefaults : {
-						linePattern : 'dotted',
-						showMarker : false,
-						shadow : false
-					},
-					axes:{
-				        xaxis:{
-				          label:'Hours (24 HR Format)',
-				          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-				        },
-				        yaxis:{
-				          label:'Rad(W/m^2)',
-				          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-				        }
-				      }
-				});
-				plot2 = $.jqplot("chart2", [ s2 ], {
-					seriesDefaults : {
-						linePattern : 'dotted',
-						showMarker : false,
-						shadow : false
-					},
-					axes:{
-				        xaxis:{
-				          label:'Hours (24 HR Format)'
-				        },
-				        yaxis:{
-				          label:'Rad(W/m^2)'
-				        }
-				      }
-				});
-				$("#chart2").hide();
-				$("#messageDiv").text("Peak Hour Duration : 10:00 - 15:00 HRS");
-				$("#messageDiv2").text("Mean Radiation :  320.59 W/m^2");
-				$("#messageDiv3").text("Maximum Radiation :  1070.049 W/m^2");
-				$("#messageDiv3").text("Maximum Radiation :  1070.049 W/m^2");
-				$("#messageDiv4").text("Total Radiation :  7694.171 W/m^2");
-				$('#panel').on('change', function (e) {
-				    var optionSelected = $("option:selected", this);
-				    var valueSelected = this.value;
-				    if (valueSelected == "1") {
-						$("#chart1").show();
-						$("#chart2").hide();
-						$("#messageDiv").text("Peak Hour Duration : 10:00 - 15:00 HRS");
-						$("#messageDiv2").text("Mean Radiation :  320.59 W/m^2");
-						$("#messageDiv3").text("Maximum Radiation :  1070.049 W/m^2");
-						$("#messageDiv4").text("Total Radiation :  7694.171 W/m^2");
-					} else if (valueSelected == "2") {
-						$("#chart1").hide();
-						$("#chart2").show();
-						$("#messageDiv").text("Peak Hour Duration : 10:00 - 16:30 HRS");
-						$("#messageDiv2").text("Mean Radiation :  258.7 W/m^2");
-						$("#messageDiv3").text("Maximum Radiation :  1057.321 W/m^2");
-						$("#messageDiv4").text("Total Radiation :  7953.155 W/m^2");
-					}
-				});
-				$(window).bind("load", function() { 
-					slideIndex = 1;
-					showDivs(slideIndex);	
-				});
+				  $.jqplot.config.enablePlugins = true;
+				    var s1 = [2265,2395,2278,2285,2200];
+				    var s2 = [654,945,567,445,887];
+				    var s3 = [1344,2342,2679,3523,4218];
+			        var ticks = ['Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday'];
+			         
+			        plot1 = $.jqplot('chart1', [s1, s2, s3], {
+			            // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+			            animate: !$.jqplot.use_excanvas,
+			            stackSeries: true,
+			            
+			            seriesDefaults:{
+			                renderer:$.jqplot.BarRenderer,
+			                rendererOptions: {
+			                    // Put a 30 pixel margin between bars.
+			                    barMargin: 30,
+			                    // Highlight bars when mouse button pressed.
+			                    // Disables default highlighting on mouse over.
+			                    highlightMouseDown: true   
+			                },			               
+			                pointLabels: { show: true }
+			            },
+			            series:[
+			                {label:'Hotel'},
+			                {label:'Event Regristration'},
+			                {label:'Airfare'}
+			            ],
+			            // Show the legend and put it outside the grid, but inside the
+			            // plot container, shrinking the grid to accomodate the legend.
+			            // A value of "outside" would not shrink the grid and allow
+			            // the legend to overflow the container.
+			            legend: {
+			                show: true,
+			                placement: 'outsideGrid'		                
+			            }, 
+			            axes: {
+			                xaxis: {
+			                    renderer: $.jqplot.CategoryAxisRenderer,
+			                    ticks: ticks
+			      
+			                }
+			            }
+			        });
+			     
+			        
+			 
 			});
 	function plusDivs(n) {
 		  showDivs(slideIndex += n);
@@ -111,15 +96,16 @@ var slideIndex;
 	<br>
 	
 <div>
-	<div id="chart1" style="margin-top: 10px; width: 50%; height: 350px;float:left;margin-left:5%  "></div>
-	<div id="chart2" style="margin-top: 10px; width: 50%; height: 450px; float:left;margin-left:5%  "></div>
+	
+	<div id="chart1"  style="margin-top: 10px; width: 50%; height: 350px;float:left;margin-left:5%"></div>
+	
 	 <div style="float:right;width:40%;margin-left:5% ">
 		<h3>Activity Recommendation (Based on priority)</h3>
 	<ol>
-  		<li><p style="text-align:left;margin-left:5%;">Exercise</p></li>
-		<li> <p style="text-align:left;margin-left:5%;">Research</p></li>
-		<li> <p style="text-align:left;margin-left:5%">Food</p></li>
-		<li> <p style="text-align:left;margin-left:5%">Plant Research</p></li>
+  		<li><p style="text-align:left;margin-left:5%;">Exercise (9:00-11:00 AM )</p></li>
+		<li> <p style="text-align:left;margin-left:5%;">Plant Research (2:00-5:00 PM)</p></li>
+		<li> <p style="text-align:left;margin-left:5%">Cooking (12:00-1:00 PM)</p></li>
+		
 	</ol>
 	</div>
 </div>

@@ -127,6 +127,7 @@
 					//load image array adding images to div 
 					$('#selectedDevicesId').empty();
 					$.each(filteredProducts, function() {
+						//powerGenerated/this.POWER -> tooltip
 						var path = this.IMAGE_URL;
 						$('<img />').attr('src', "" + path + "") // ADD IMAGE PROPERTIES.
 						.width('140px').height('140px').appendTo($('#imagesList'));
