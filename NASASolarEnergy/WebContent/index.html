@@ -80,7 +80,9 @@
 							$("#"+selectedDeviceName+"HourLblId").text(parseInt(ui.value)+" hrs");
 							if(selectedDeviceName==='AIRCONDITIONER' && parseInt(ui.value)==9){
 								$("#LCDId").slider('value',8);
-								$("#WIFIROUTERId").slider('value',7);
+								$("#WIFIROUTERId").slider ('value',7);
+								$("#LCDHourLblId").text('8 hrs');
+								$("#WIFIROUTERHourLblId").text('7 hrs');
 							}
 						}
 			});
@@ -243,8 +245,8 @@
 	
 		<div>
 			Location: <select id="locationSelectId" style="height:50%">
-			<option value="1">Texas, USA</option>
-			<option value="2">California, USA</option>
+			<option value="1">Austin, Texas (N 30.307182, W -97.755996)</option>
+			<option value="2">California, USA (N 34.052235, W -118.243683)</option>
 		</select>
 		Select a Date: <input type="text" id="datepicker" onclick="click()">
 			<input type="text" id="amount" readonly
@@ -260,8 +262,7 @@
 			<img src="img/images.jpg" width="30%">
 		</div> -->
 		<br/>
-		<div>
-			Select the type of Panel
+		<div>Select the type of Panel
 			<select id="panel" style="margin-left: 10%">
 				<option value="img/monocrystalline.png">Monocrystalline Panels(15%)</option>
 				<option value="img/polycrystalline.jpg">Polycrystalline Panels(13%)</option>
